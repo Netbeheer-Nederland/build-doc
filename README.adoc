@@ -10,8 +10,8 @@ $ docker login
 
 Met de repository root als current working directory, bouw de nieuwe image:
 
-$ docker build -t ghcr.io/netbeheer-nederland/dataproducten:latest .
+$ docker build -t ghcr.io/netbeheer-nederland/build-doc:latest .
 
 Push de nieuwe image naar GHCR:
 
-$ docker push ghcr.io/netbeheer-nederland/dataproducten:latest
+$ docker push ghcr.io/netbeheer-nederland/build-doc:latest
