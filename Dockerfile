@@ -3,7 +3,7 @@ FROM python:3.13-alpine3.23
 # Set environment variables
 ENV RUNNING_IN_DOCKER=true
 ENV NODE_PATH=/usr/lib/node_modules
-ENV SCRIPTS=/opt/documentatie
+ENV SCRIPTS=/opt/build
 ENV SHELL=/bin/bash
 
 # Whether in CI/CD pipeline or not. Overridden by GitHub Actions if running there.
@@ -31,7 +31,6 @@ RUN npm i -g \
     @antora/cli@3.1.9 \
     @antora/lunr-extension@^1.0.0-alpha.8 \
     @antora/site-generator@3.1.9 \
-    @antora/collector-extension@^1.0.2 \
     @mermaid-js/mermaid-cli@^11.4.2 \
     asciidoctor-kroki@^0.18.1 \
     @asciidoctor/reveal.js@^5.2.0 \
