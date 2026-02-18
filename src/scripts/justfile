@@ -1,0 +1,49 @@
+set shell := ["bash", "-uc"]
+name := shell("yq .name src/model/*.linkml.yml | tr '-' '_'")
+site_title := shell("yq .title src/model/*.linkml.yml")
+
+_default:
+    @just --list --unsorted --justfile {{justfile()}}
+
+# Cleans the output directory
+_clean:
+    #!/bin/bash
+    set -e
+    echo "Cleaning up…"
+    echo
+    if [ -d output ]; then \
+        rm -rf output; \
+    fi
+    echo "… OK."
+    echo
+
+# Build and serve website locally
+[group("development")]
+build-and-serve: build serve
+
+# Build website locally
+[group("development")]
+build: 
+    @echo "Generating site using Antora…"
+    @if [ $CI == "true"  ]; then \
+        jinja -D site_url https://modellen.netbeheernederland.nl/{{name}} -D site_title {{site_title}} /opt/documentatie/antora/antora-playbook.yml.jinja > /tmp/antora-playbook.yml; \
+        antora --fetch /tmp/antora-playbook.yml; \
+    else \
+        jinja -D site_url http://localhost:8080 -D site_title {{site_title}} /opt/documentatie/antora/antora-playbook.local.yml.jinja > /tmp/antora-playbook.local.yml; \
+        antora --fetch /tmp/antora-playbook.local.yml; \
+    fi
+    @echo
+    @echo -e "Generated documentation files at: output/docs/html"
+    @echo
+
+# Serve the built website locally
+[group("development")]
+serve:
+    @echo -e "Serving website from output/docs/html…"
+    @echo
+    http-serve output/docs/html
+
+# Submit for review to accept changes
+[group("version-control")]
+submit-for-review:
+    @echo TODO…
