@@ -1,6 +1,6 @@
 set shell := ["bash", "-uc"]
-name := shell("yq .name src/model/*.linkml.yml | tr '-' '_'")
-site_title := shell("yq .title src/model/*.linkml.yml")
+name := shell("yq .name src/antora.yml | tr '-' '_'")
+site_title := shell("yq .title src/antora.yml")
 
 _default:
     @just --list --unsorted --justfile {{justfile()}}
