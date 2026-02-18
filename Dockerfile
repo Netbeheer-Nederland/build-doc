@@ -42,7 +42,7 @@ RUN wget https://github.com/mikefarah/yq/releases/download/v4.52.2/yq_linux_amd6
 
 # Copy configuration files
 RUN mkdir -p $SCRIPTS
-COPY src/scripts $SCRIPTS/
+COPY src $SCRIPTS/
 
 # Get Antora UI files
 RUN wget https://github.com/Netbeheer-Nederland/antora-ui/archive/refs/tags/0.9.tar.gz -O antora-ui.tar.gz \
@@ -78,6 +78,6 @@ USER $USER
 RUN touch ~/.bashrc && echo 'source /usr/share/bash-completion/completions/just' >> ~/.bashrc
 
 # Metadata
-LABEL org.opencontainers.image.source=https://github.com/netbeheer-nederland/dataproducten
+LABEL org.opencontainers.image.source=https://github.com/netbeheer-nederland/build-doc
 LABEL org.opencontainers.image.description="Netbeheer Nederland environment for writing documentation projects."
 LABEL org.opencontainers.image.licenses=Apache-2.0
