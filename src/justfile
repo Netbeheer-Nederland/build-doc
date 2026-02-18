@@ -19,7 +19,7 @@ _clean:
 
 # Build and serve website locally
 [group("development")]
-build-and-serve: build serve
+preview: build serve
 
 # Build website locally
 [group("development")]
