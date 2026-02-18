@@ -17,6 +17,7 @@ RUN apk add --no-cache \
     git=2.52.0-r0 \
     nodejs=24.13.0-r1 \
     npm=11.6.3-r0 \
+    uv=0.10.2-r0 \
     just==1.43.1-r0 \
     github-cli=2.83.0-r3 \
     openssh=10.2_p1-r0 \
@@ -24,6 +25,9 @@ RUN apk add --no-cache \
     grep=3.12-r0
 
 SHELL ["/bin/bash", "-c"]
+
+# Install Python project dependencies
+RUN uv pip install --system "jinja-cli==1.2.2"
 
 # Install Antora and its dependencies
 RUN npm i -g \
