@@ -49,7 +49,7 @@ RUN mkdir -p $SCRIPTS
 COPY src $SCRIPTS/
 
 # Get Antora UI files
-RUN wget https://github.com/Netbeheer-Nederland/antora-ui/archive/refs/tags/0.9.tar.gz -O antora-ui.tar.gz \
+RUN wget https://github.com/Netbeheer-Nederland/antora-ui/archive/refs/tags/0.11.tar.gz -O antora-ui.tar.gz \
     && tar -xvzf antora-ui.tar.gz
 RUN cp -r antora-ui-*/supplemental-ui $SCRIPTS/antora/
 
