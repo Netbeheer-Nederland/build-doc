@@ -1,17 +1,108 @@
-= NBNL Bouwlogica — Documentatie
+= NBNL build environment for documentation projects
 
-== Ontwikkel- en bouwomgeving
+== Users
 
-=== Publiceren nieuwe versie
+It is recommended to use a Dev Container to do your modeling work.
 
-Zorg dat je ingelogd bent:
+To this end, make a copy of `.devcontainer.example.json`, call it `.devcontainer.json` and place it in a directory which contains all of the documentation repositories you're working on. Feel free to tweak the file to your liking, but be cautious with meddling with the AsciiDoc related settings.
 
+=== GitHub CLI
+
+To be able to use the GitHub CLI client `gh`, you have two options:
+
+1. Create a (classic) PAT (_Personal Access Token_) on GitHub, and make the token available in the container through the `GH_TOKEN` environment variable.
+2. Log in from the container using `gh auth login`. This is not recommended, since the session will likely not persist.
+
+CAUTION: The `create-project` script relies on the use of `gh` and therefore requires this authentication.
+
+=== SSH keys
+
+To use your local SSH keys in the Dev Container, simply run a `ssh-agent` session and add the identities of interest to it.
+
+'''
+
+==== Example
+
+Start an SSH agent session:
+
+[source,shell]
+....
+$ eval $(ssh-agent -s)
+Agent pid 97280
+....
+
+Add your private key:
+
+[source,shell]
+....
+$ ssh-add
+....
+
+Optionally you can pass in the private keys as arguments.
+
+'''
+
+Please consult other resources for more information.
+
+== Developers
+
+=== Publishing images
+
+First, make sure all commits are synced with remote by pushing:
+
+[source,shell]
+....
+$ git push
+....
+
+Ensure you are logged into GHCR:
+
+[source,shell]
+....
 $ docker login
+....
 
-Met de repository root als current working directory, bouw de nieuwe image:
+==== `upcoming` version
 
-$ docker build -t ghcr.io/netbeheer-nederland/build-doc:latest .
+The `upcoming` version is intended for testing the most recent changes to `build-doc` without it affecting CI/CD pipelines and users's Dev Containers.
 
-Push de nieuwe image naar GHCR:
+Make sure the current working directory is the repository root. Then, to build the Docker image, run:
 
+[source,shell]
+....
+$ docker build -t ghcr.io/netbeheer-nederland/build-doc:upcoming .
+....
+
+If building has succeeded, push the built image to GHCR:
+
+[source,shell]
+....
+$ docker push ghcr.io/netbeheer-nederland/build-doc:upcoming
+....
+
+==== New release
+
+Go to the https://github.com/Netbeheer-Nederland/build-doc/releases[Releases] page of this repository on GitHub, determine the version specifier of the new release -- e.g. `0.11` -- and create a new release for it.
+
+Moving on, we want to build the new Docker image and publish it.
+
+
+Make sure the current working directory is the repository root. Then, to build the Docker image, run:
+
+[source,shell]
+....
+$ docker build -t ghcr.io/netbeheer-nederland/build-doc:<VERSION> -t ghcr.io/netbeheer-nederland/build-doc:latest .
+....
+
+where `<VERSION>` corresponds to the version specifier determined earlier (e.g. `0.11`).
+
+If building has succeeded, push the built image to GHCR:
+
+[source,shell]
+....
+$ docker push ghcr.io/netbeheer-nederland/build-doc:<VERSION>
+...
 $ docker push ghcr.io/netbeheer-nederland/build-doc:latest
+...
+....
+
