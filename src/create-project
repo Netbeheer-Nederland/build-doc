@@ -1,0 +1,54 @@
+#!/bin/bash
+
+name=$1
+
+# Somehow replaces the value of `$1`.
+set shopt -e
+
+# TODO: Move these env vars to Dockerfile and use them in the justfile also.
+BASE_URI=https://modellen.netbeheernederland.nl
+ORG=Netbeheer-Nederland
+TEAM=team-semantiek
+MAIN_BRANCH_NAME=upcoming
+
+copier copy gh:$ORG/template-doc $name
+
+
+cd $name
+git init -b $MAIN_BRANCH_NAME
+git add . .github .gitignore .copier-answers.yml
+git commit -m "Initial commit"
+gh repo new $ORG/$name \
+    --description "$(yq '.description' .copier-answers.yml)" \
+    --disable-wiki \
+    --homepage $BASE_URI/$name \
+    --public \
+    --team $TEAM
+
+# Gives `write` permission to all team members for this repository
+gh api --method PUT \
+    -H "Accept: application/vnd.github+json" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    /orgs/$ORG/teams/$TEAM/repos/$ORG/$name \
+    -f 'permission=push'  
+
+git_protocol=$(yq '.git_protocol' .copier-answers.yml)
+if [ "$git_protocol" == "HTTPS" ]; then \
+    remoteUrl=$(gh repo view $ORG/$name --json url -q .url); \
+elif [ "$git_protocol" == "SSH" ]; then \
+    remoteUrl=$(gh repo view $ORG/$name --json sshUrl -q .sshUrl); \
+else \
+    echo "No valid Git protocol could be determined for use in the remote URL."; \
+    exit 1; \
+fi
+
+git remote add origin $remoteUrl
+git push -u origin $MAIN_BRANCH_NAME
+
+# Set up GitHub Pages from Actions
+gh api \
+  --method POST \
+  -H "Accept: application/vnd.github+json" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  /repos/$ORG/$name/pages \
+   -f 'build_type=workflow' -f "source[branch]=$MAIN_BRANCH_NAME"

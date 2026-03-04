@@ -27,7 +27,9 @@ RUN apk add --no-cache \
 SHELL ["/bin/bash", "-c"]
 
 # Install Python project dependencies
-RUN uv pip install --system "jinja-cli==1.2.2"
+RUN uv pip install --system \
+    "jinja-cli==1.2.2" \
+    "copier==9.12.0"
 
 # Install Antora and its dependencies
 RUN npm i -g \
