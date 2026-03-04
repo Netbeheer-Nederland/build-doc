@@ -16,7 +16,7 @@ preview-production: && serve
     #!/bin/bash
     CI=true just build
 
-# Build website locally
+# Build website
 [group("development")]
 build: 
     @echo "Generating site using Antora…"
