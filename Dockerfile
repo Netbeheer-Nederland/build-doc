@@ -5,13 +5,15 @@ ENV RUNNING_IN_DOCKER=true
 ENV NODE_PATH=/usr/lib/node_modules
 ENV SCRIPTS=/opt/build
 ENV SHELL=/bin/bash
+ENV ENV_URL=https://ghcr.io/netbeheer-nederland/build-doc:0.1
+ENV PATH=$PATH:/opt/build
 
 # Whether in CI/CD pipeline or not. Overridden by GitHub Actions if running there.
 ENV CI=false
 
 # Install required packages
 RUN apk add --no-cache \
-    vim=9.1.2132-r0 \
+    vim=9.2.0078-r0 \
     bash=5.3.3-r1 \
     bc=1.08.2-r0 \
     git=2.52.0-r0 \
