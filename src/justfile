@@ -6,21 +6,15 @@ has_nav := shell("yq '.nav // [] | any' src/antora.yml")
 _default:
     @just --list --unsorted --justfile {{justfile()}}
 
-# Cleans the output directory
-_clean:
-    #!/bin/bash
-    set -e
-    echo "Cleaning up…"
-    echo
-    if [ -d output ]; then \
-        rm -rf output; \
-    fi
-    echo "… OK."
-    echo
-
 # Build and serve website locally
 [group("development")]
 preview: build serve
+
+# Build all versions as in CI/CD pipeline and serve website locally
+[group("development")]
+preview-production: && serve
+    #!/bin/bash
+    CI=true just build
 
 # Build website locally
 [group("development")]
