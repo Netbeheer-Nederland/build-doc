@@ -15,7 +15,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/netbeheer-nederland/build-doc:upcoming
+      image: ghcr.io/netbeheer-nederland/build-doc:latest
       options: --user 1001
     environment:
       name: github-pages
