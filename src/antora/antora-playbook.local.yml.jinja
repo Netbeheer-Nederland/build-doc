@@ -17,6 +17,10 @@ asciidoc:
 output:
   clean: true
   dir: output/docs/html
+{% if versioning_strategy == "evolution" -%}
+urls:
+  latest_version_segment: ''
+{% endif -%}
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
