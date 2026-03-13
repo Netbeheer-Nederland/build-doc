@@ -9,7 +9,7 @@ set shopt -e
 BASE_URI=https://modellen.netbeheernederland.nl
 ORG=Netbeheer-Nederland
 TEAM=team-semantiek
-MAIN_BRANCH_NAME=current
+MAIN_BRANCH_NAME=main
 
 copier copy gh:$ORG/template-doc $name
 

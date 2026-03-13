@@ -13,15 +13,15 @@ ENV CI=false
 
 # Install required packages
 RUN apk add --no-cache \
-    vim=9.2.0078-r0 \
+    vim=9.2.0140-r0 \
     bash=5.3.3-r1 \
     bc=1.08.2-r0 \
     git=2.52.0-r0 \
     nodejs=24.13.0-r1 \
-    npm=11.6.3-r0 \
+    npm=11.11.0-r0 \
     uv=0.10.2-r0 \
     just==1.43.1-r0 \
-    github-cli=2.83.0-r3 \
+    github-cli=2.83.0-r4 \
     openssh=10.2_p1-r0 \
     tar=1.35-r4 \
     grep=3.12-r0

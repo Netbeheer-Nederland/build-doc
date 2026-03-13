@@ -7,7 +7,7 @@ content:
     - url: ''
       tags: '@({0..9})*({0..9}).+({0..9})'
       branches:
-        - current
+        - main
         - draft*
       start_path: src
 asciidoc:
@@ -22,6 +22,10 @@ asciidoc:
 output:
   clean: true
   dir: output/docs/html
+{% if versioning_strategy == "evolution" -%}
+urls:
+  latest_version_segment: ''
+{% endif -%}
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
@@ -29,4 +33,6 @@ ui:
   supplemental_files: /opt/build/antora/supplemental-ui/{% if has_nav == "false" %}single-page{% else %}default{% endif %}
 antora:
   extensions:
+    - require: '/opt/build/antora/versioning-strategy.js'
     - require: '@antora/lunr-extension'
+
