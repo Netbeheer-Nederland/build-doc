@@ -1,7 +1,7 @@
 set shell := ["bash", "-uc"]
 name := shell("basename $(git remote get-url origin) .git")
-site_title := shell("yq .title src/antora.yml")
-has_nav := shell("yq '.nav // [] | any' src/antora.yml")
+site_title := shell("yq .title src/docs/antora.yml")
+has_nav := shell("yq '.nav // [] | any' src/docs/antora.yml")
 versioning_strategy := if shell("git ls-remote --tags origin") == "" { "evolution" } else { "release" }
 
 _default:
