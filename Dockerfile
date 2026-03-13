@@ -5,7 +5,7 @@ ENV RUNNING_IN_DOCKER=true
 ENV NODE_PATH=/usr/lib/node_modules
 ENV SCRIPTS=/opt/build
 ENV SHELL=/bin/bash
-ENV ENV_URL=https://ghcr.io/netbeheer-nederland/build-doc:0.2
+ENV ENV_URL=https://ghcr.io/netbeheer-nederland/build-doc:0.3
 ENV PATH=$PATH:/opt/build
 
 # Whether in CI/CD pipeline or not. Overridden by GitHub Actions if running there.
@@ -53,7 +53,7 @@ RUN mkdir -p $SCRIPTS
 COPY src $SCRIPTS/
 
 # Get Antora UI files
-RUN wget https://github.com/Netbeheer-Nederland/antora-ui/archive/refs/tags/0.30.tar.gz -O antora-ui.tar.gz \
+RUN wget https://github.com/Netbeheer-Nederland/antora-ui/archive/refs/tags/0.40.tar.gz -O antora-ui.tar.gz \
     && tar -xvzf antora-ui.tar.gz
 RUN cp -r antora-ui-*/supplemental-ui $SCRIPTS/antora/
 
