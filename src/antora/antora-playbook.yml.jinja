@@ -4,7 +4,7 @@ site:
 content:
   sources:
     - url: ''
-      tags: '@({0..9})*({0..9}).+({0..9})'
+      tags: ['!deprecated', '@({1..9})*({0..9}).+({0..9})']
       branches:
         - main
         - draft*
