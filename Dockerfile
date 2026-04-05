@@ -5,7 +5,7 @@ ENV RUNNING_IN_DOCKER=true
 ENV NODE_PATH=/usr/lib/node_modules
 ENV SCRIPTS=/opt/build
 ENV SHELL=/bin/bash
-ENV ENV_URL=https://ghcr.io/netbeheer-nederland/build-doc:0.3
+ENV ENV_URL=https://ghcr.io/netbeheer-nederland/build-doc:0.5
 ENV PATH=$PATH:/opt/build
 
 # Whether in CI/CD pipeline or not. Overridden by GitHub Actions if running there.
@@ -51,11 +51,6 @@ RUN wget https://github.com/mikefarah/yq/releases/download/v4.52.2/yq_linux_amd6
 # Copy configuration files
 RUN mkdir -p $SCRIPTS
 COPY src $SCRIPTS/
-
-# Get Antora UI files
-RUN wget https://github.com/Netbeheer-Nederland/antora-ui/archive/refs/tags/0.40.tar.gz -O antora-ui.tar.gz \
-    && tar -xvzf antora-ui.tar.gz
-RUN cp -r antora-ui-*/supplemental-ui $SCRIPTS/antora/
 
 # Install shell completions for just
 RUN mkdir -p /usr/share/bash-completion/completions
