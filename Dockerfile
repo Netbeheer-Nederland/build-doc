@@ -5,7 +5,7 @@ ENV RUNNING_IN_DOCKER=true
 ENV NODE_PATH=/usr/lib/node_modules
 ENV SCRIPTS=/opt/build
 ENV SHELL=/bin/bash
-ENV ENV_URL=https://ghcr.io/netbeheer-nederland/build-doc:0.5
+ENV ENV_URL=https://ghcr.io/netbeheer-nederland/build-doc:0.4
 ENV PATH=$PATH:/opt/build
 
 # Whether in CI/CD pipeline or not. Overridden by GitHub Actions if running there.
