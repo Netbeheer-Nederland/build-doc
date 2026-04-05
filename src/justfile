@@ -2,7 +2,7 @@ set shell := ["bash", "-uc"]
 name := shell("basename $(git remote get-url origin) .git")
 site_title := shell("yq .title src/docs/antora.yml")
 has_nav := shell("yq '.nav // [] | any' src/docs/antora.yml")
-versioning_strategy := if shell("git ls-remote --tags origin") == "" { "evolution" } else { "release" }
+release_strategy := shell("git show main:src/docs/antora.yml | grep -oP '(?<=release_strategy: ).*'") || "evolution"
 
 _default:
     @just --list --unsorted --justfile {{justfile()}}
@@ -26,17 +26,17 @@ build:
             -D site_url https://modellen.netbeheernederland.nl/{{name}} \
             -D site_title "{{site_title}}" \
             -D has_nav {{has_nav}} \
-            -D versioning_strategy {{versioning_strategy}} \
+            -D release_strategy {{release_strategy}} \
             /opt/build/antora/antora-playbook.yml.jinja > /tmp/antora-playbook.yml; \
-        VERSIONING_STRATEGY={{versioning_strategy}} antora --fetch /tmp/antora-playbook.yml; \
+        RELEASE_STRATEGY={{release_strategy}} antora --fetch /tmp/antora-playbook.yml; \
     else \
         jinja \
             -D site_url http://localhost:8080 \
             -D site_title "{{site_title}}" \
             -D has_nav {{has_nav}} \
-            -D versioning_strategy {{versioning_strategy}} \
+            -D release_strategy {{release_strategy}} \
             /opt/build/antora/antora-playbook.local.yml.jinja > /tmp/antora-playbook.local.yml; \
-        VERSIONING_STRATEGY={{versioning_strategy}} antora --fetch /tmp/antora-playbook.local.yml; \
+        RELEASE_STRATEGY={{release_strategy}} antora --fetch /tmp/antora-playbook.local.yml; \
     fi
     @echo
     @echo -e "Generated documentation files at: output/docs/html"
