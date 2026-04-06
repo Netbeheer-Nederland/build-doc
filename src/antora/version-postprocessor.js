@@ -7,7 +7,7 @@ module.exports.register = function () {
             bucket.prerelease = true
 	  }
           if (bucket.version == "main") {
-	    bucket.version = "next"
+	    bucket.version = "upcoming"
 	  }
         break
         case "evolution":
