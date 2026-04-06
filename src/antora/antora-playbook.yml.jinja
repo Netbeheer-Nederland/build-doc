@@ -32,6 +32,5 @@ ui:
   default_layout: {% if has_nav == "false" %}single-page{% else %}default{% endif %}
 antora:
   extensions:
-    - require: '/opt/build/antora/versioning-strategy.js'
+    - require: '/opt/build/antora/version-postprocessor.js'
     - require: '@antora/lunr-extension'
-
