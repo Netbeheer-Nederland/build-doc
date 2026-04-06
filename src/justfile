@@ -2,7 +2,7 @@ set shell := ["bash", "-uc"]
 name := shell("basename $(git remote get-url origin) .git")
 site_title := shell("yq .title src/docs/antora.yml")
 has_nav := shell("yq '.nav // [] | any' src/docs/antora.yml")
-release_strategy := if shell("git tag -l | grep -P '^[1-9]*[0-9]+\.[0-9]+$'") == "" { "evolution" } else { "release" }
+release_strategy := if shell("git tag -l | grep -P '^[1-9]*[0-9]+\\.[0-9]+$'") == "" { "evolution" } else { "release" }
 
 _default:
     @just --list --unsorted --justfile {{justfile()}}

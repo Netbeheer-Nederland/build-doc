@@ -1,6 +1,7 @@
 module.exports.register = function () {
   this.once("contentAggregated", ({ contentAggregate }) => {
     for (const bucket of contentAggregate) {
+      console.log("my object: %o", bucket)
       switch (process.env.RELEASE_STRATEGY) {
         case "release":
           if (!/^\d+\.\d+$/.test(bucket.version))
