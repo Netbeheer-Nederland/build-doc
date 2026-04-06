@@ -18,10 +18,13 @@ asciidoc:
 output:
   clean: true
   dir: output/docs/html
+urls:
+  latest_version_segment: ''
 ui:
   bundle:
     url: https://github.com/Netbeheer-Nederland/antora-nbnl-ui/releases/download/1.0/ui-bundle.zip
   default_layout: {% if has_nav == "false" %}single-page{% else %}default{% endif %}
 antora:
   extensions:
+    - require: '/opt/build/antora/version-postprocessor.js'
     - require: '@antora/lunr-extension'
