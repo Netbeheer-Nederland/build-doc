@@ -9,19 +9,12 @@ module.exports.register = function () {
 	    bucket.version = "next"
         break
         case "evolution":
-          if (bucket.version != "main")
-            bucket.prerelease = true
-          else
+          if (bucket.version == "main")
             bucket.version = "current"
+          else
+            bucket.prerelease = true
         break
       }
     }
   })
 }
-
-
-/* TODO: Safest logic rewrite:
-
-If strat = release: only tags are releases everything else is prerelease
-   strat = evolution: only main branch is release, everything else is prerelease
-*/
