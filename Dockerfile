@@ -5,7 +5,7 @@ ENV RUNNING_IN_DOCKER=true
 ENV NODE_PATH=/usr/lib/node_modules
 ENV SCRIPTS=/opt/build
 ENV SHELL=/bin/bash
-ENV ENV_URL=https://ghcr.io/netbeheer-nederland/build-doc:0.5
+ENV ENV_URL=https://ghcr.io/netbeheer-nederland/build-doc:0.6
 ENV PATH=$PATH:/opt/build
 
 # Whether in CI/CD pipeline or not. Overridden by GitHub Actions if running there.
@@ -13,15 +13,15 @@ ENV CI=false
 
 # Install required packages
 RUN apk add --no-cache \
-    vim=9.2.0280-r0 \
+    vim=9.2.0452-r0 \
     bash=5.3.3-r1 \
     bc=1.08.2-r0 \
     git=2.52.0-r0 \
     nodejs=24.14.1-r0 \
     npm=11.11.0-r0 \
     uv=0.10.2-r0 \
-    just==1.43.1-r0 \
-    github-cli=2.83.0-r4 \
+    just=1.43.1-r0 \
+    github-cli=2.83.0-r5 \
     openssh=10.2_p1-r0 \
     tar=1.35-r4 \
     grep=3.12-r0
@@ -42,6 +42,7 @@ RUN npm i -g \
     @mermaid-js/mermaid-cli@^11.4.2 \
     asciidoctor-kroki@^0.18.1 \
     @asciidoctor/reveal.js@^5.2.0 \
+    @djencks/asciidoctor-mathjax \
     js-yaml@^4.1.1
 
 # Install Mike Farah's yq

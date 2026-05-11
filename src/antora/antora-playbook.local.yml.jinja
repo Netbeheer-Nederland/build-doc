@@ -15,6 +15,7 @@ asciidoc:
     kroki-server-url: http://fruit.ritger.nl:9000
   extensions:
     - asciidoctor-kroki
+    - '@djencks/asciidoctor-mathjax'
 output:
   clean: true
   dir: output/docs/html
@@ -22,7 +23,7 @@ urls:
   latest_version_segment: ''
 ui:
   bundle:
-    url: https://github.com/Netbeheer-Nederland/antora-nbnl-ui/releases/download/1.1/ui-bundle.zip
+    url: https://github.com/Netbeheer-Nederland/antora-ui-nbnl/releases/download/1.2/ui-bundle.zip
   default_layout: {% if has_nav == "false" %}single-page{% else %}default{% endif %}
 antora:
   extensions:
